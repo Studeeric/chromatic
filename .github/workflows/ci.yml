@@ -99,9 +99,9 @@ jobs:
             rm chromatic
           }
 
-          package_binary "chromatic-amd64" "chromatic-linux-amd64"
-          package_binary "chromatic-amd64-musl" "chromatic-linux-amd64-musl"
-          package_binary "chromatic-arm64" "chromatic-linux-arm64"
+          package_binary "chromatic-x64-glibc" "chromatic-linux-amd64"
+          package_binary "chromatic-x64-musl" "chromatic-linux-amd64-musl"
+          package_binary "chromatic-arm64-glibc" "chromatic-linux-arm64"
           package_binary "chromatic-arm64-musl" "chromatic-linux-arm64-musl"
 
           cd ..
