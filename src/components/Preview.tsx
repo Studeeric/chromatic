@@ -1,22 +1,15 @@
 import { createSignal, For, Show, createEffect } from "solid-js";
 import type { ColorScheme } from "../types";
-import codeExamplesData from "../data/code.json";
+import codeExamplesData, { type Language, type CodeExample } from "../data/code";
 import { highlightSyntax, type CodeToken } from "../utils/syntaxHighlighter";
 
 interface PreviewProps {
   scheme: ColorScheme;
 }
 
-type Language = "typescript" | "python" | "rust" | "go" | "javascript" | "c" | "cpp" | "zig";
-
 interface CodeLine {
   content: string;
   tokens: CodeToken[];
-}
-
-interface CodeExample {
-  filename: string;
-  code: string;
 }
 
 interface WrappedLine {
@@ -25,7 +18,7 @@ interface WrappedLine {
   originalLineIndex: number;
 }
 
-const codeExamples = codeExamplesData as Record<Language, CodeExample>;
+const codeExamples = codeExamplesData;
 
 function parseCodeExample(example: CodeExample, language: Language): CodeLine[] {
   const lines = example.code.split("\n");
