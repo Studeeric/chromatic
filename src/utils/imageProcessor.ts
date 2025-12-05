@@ -1,7 +1,6 @@
 import type { ColorScheme } from "../types";
 import { extractColors } from "./colorExtraction";
 import { mapColorsToScheme } from "./colorMapping";
-import { optimizeColorScheme } from "./colorOptimization";
 
 export async function processImageFile(file: File): Promise<ColorScheme> {
   if (!file.type.startsWith("image/")) {
@@ -44,10 +43,9 @@ export async function processImageFile(file: File): Promise<ColorScheme> {
         }
 
         const colorScheme = mapColorsToScheme(extractedColors);
-        const optimizedScheme = optimizeColorScheme(colorScheme);
 
         URL.revokeObjectURL(imageUrl);
-        resolve(optimizedScheme);
+        resolve(colorScheme);
       } catch (e) {
         URL.revokeObjectURL(imageUrl);
         reject(e);
