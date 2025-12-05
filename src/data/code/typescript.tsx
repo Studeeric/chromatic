@@ -7,12 +7,10 @@ interface AppProps {
 }
 
 export default function App(props: AppProps) {
-  const [scheme, setScheme] = createSignal<ColorScheme>(
-    props.initialScheme ?? defaultColorScheme
-  );
+  const [scheme, setScheme] = createSignal<ColorScheme>(props.initialScheme ?? defaultColorScheme);
 
   createEffect(() => {
-    localStorage.setItem('scheme', JSON.stringify(scheme()));
+    localStorage.setItem("scheme", JSON.stringify(scheme()));
   });
 
   return (

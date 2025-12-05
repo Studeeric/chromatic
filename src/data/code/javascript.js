@@ -5,7 +5,7 @@ function createColorScheme(name, colors) {
   return {
     name,
     ...colors,
-    createdAt: new Date()
+    createdAt: new Date(),
   };
 }
 
@@ -13,7 +13,7 @@ function App() {
   const [scheme, setScheme] = createSignal(defaultColorScheme);
 
   const handleColorChange = (key, value) => {
-    setScheme(prev => ({ ...prev, [key]: value }));
+    setScheme((prev) => ({ ...prev, [key]: value }));
   };
 
   return <Preview scheme={scheme()} />;

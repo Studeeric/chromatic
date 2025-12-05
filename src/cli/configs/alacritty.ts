@@ -1,7 +1,13 @@
 import { join } from "path";
 import { homedir } from "os";
 import type { ColorScheme } from "../../types";
-import { readConfigFile, writeConfigFile, ensureDir, updateOrAppendLine, type ConfigUpdate } from "../utils";
+import {
+  readConfigFile,
+  writeConfigFile,
+  ensureDir,
+  updateOrAppendLine,
+  type ConfigUpdate,
+} from "../utils";
 
 export function configureAlacritty(scheme: ColorScheme): void {
   const configDir = join(homedir(), ".config", "alacritty");
