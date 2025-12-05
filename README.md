@@ -18,6 +18,8 @@ Chromatic is a modern, web-based colorscheme generator designed specifically for
 
 - **Visual Color Picker:** Interactive color picker with spectrum, hue, and brightness controls for precise color selection.
 
+- **Image Color Extraction:** Upload an image and automatically extract a colorscheme using k-means clustering. Perfect for creating colorschemes from wallpapers, artwork, or screenshots.
+
 - **Live Preview:** Real-time preview of your colorscheme in a simulated terminal and editor environment.
 
 - **Import & Export:** Import existing colorschemes from JSON files or paste JSON directly. Export your creations for use with the Chromatic CLI tool.
