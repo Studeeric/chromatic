@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:cli": "bun build --compile --minify cli.ts --outfile dist/chromatic",
+    "build:cli": "bun build --compile --minify --static cli.ts --outfile dist/chromatic",
     "build:all": "bun run build && bun run build:cli",
     "check": "bun run format:check && bunx tsc --noEmit",
     "preview": "vite preview",
