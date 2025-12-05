@@ -1,0 +1,71 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background: #161b22;
+  padding: 1rem 0;
+  border-bottom: 1px solid #30363d;
+}
+
+.header-content {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  position: relative;
+  flex-wrap: wrap;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo {
+  width: 32px;
+  height: 32px;
+}
+
+.app-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  background: linear-gradient(
+    90deg,
+    #58a6ff 0%,
+    #bc8cff 25%,
+    #f85149 50%,
+    #3fb950 75%,
+    #58a6ff 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: chromatic-shift 4s ease-in-out infinite;
+  letter-spacing: 1px;
+}
+
+.main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1600px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.left-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}

@@ -1,0 +1,78 @@
+.reset-btn,
+.preset-btn,
+.extract-image-btn {
+  background: #21262d;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid;
+}
+
+.reset-btn::before,
+.preset-btn::before,
+.extract-image-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(88, 166, 255, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.reset-btn::before {
+  background: linear-gradient(90deg, transparent, rgba(200, 209, 217, 0.1), transparent);
+}
+
+.reset-btn:hover:not(:disabled):not(.loading)::before,
+.preset-btn:hover:not(:disabled):not(.loading)::before,
+.extract-image-btn:hover:not(:disabled):not(.loading)::before {
+  left: 100%;
+}
+
+.reset-btn:disabled,
+.reset-btn.loading,
+.preset-btn:disabled,
+.preset-btn.loading,
+.extract-image-btn:disabled,
+.extract-image-btn.loading {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.reset-btn {
+  color: #c9d1d9;
+  border-color: #30363d;
+}
+
+.reset-btn:hover:not(:disabled):not(.loading) {
+  background: #30363d;
+  color: #58a6ff;
+  border-color: #58a6ff;
+  box-shadow: 0 0 15px rgba(88, 166, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.preset-btn,
+.extract-image-btn {
+  color: #58a6ff;
+  border-color: #58a6ff;
+  display: inline-block;
+}
+
+.preset-btn:hover:not(:disabled):not(.loading),
+.extract-image-btn:hover:not(:disabled):not(.loading) {
+  background: #58a6ff;
+  color: #ffffff;
+  border-color: #58a6ff;
+  box-shadow:
+    0 0 20px rgba(88, 166, 255, 0.4),
+    0 4px 12px rgba(88, 166, 255, 0.2);
+  transform: translateY(-2px);
+}

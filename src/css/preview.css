@@ -1,0 +1,295 @@
+.preview-container {
+  background: #161b22;
+  border-radius: 8px;
+  border: 1px solid #30363d;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  min-height: 600px;
+}
+
+.preview-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  padding: 1px;
+  background: linear-gradient(135deg, #58a6ff20, #bc8cff20, #f8514920, #3fb95020);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.preview-container:hover::before {
+  opacity: 1;
+}
+
+.preview-container h2 {
+  margin-bottom: 1rem;
+  color: #c9d1d9;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  gap: 2rem;
+}
+
+.preview-subtitle {
+  color: #8b949e;
+  font-size: 0.8rem;
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+.language-selector {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.language-label {
+  color: #8b949e;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.custom-dropdown {
+  position: relative;
+}
+
+.custom-dropdown-button {
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: "Fira Code", monospace;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 140px;
+  justify-content: space-between;
+}
+
+.custom-dropdown-button:hover {
+  border-color: #58a6ff;
+}
+
+.dropdown-arrow {
+  font-size: 0.7rem;
+  transition: transform 0.2s ease;
+}
+
+.custom-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  min-width: 140px;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 100;
+  overflow: hidden;
+  animation: dropdown-fade-in 0.2s ease;
+}
+
+.custom-dropdown-item {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-family: "Fira Code", monospace;
+  transition: all 0.15s ease;
+  display: block;
+}
+
+.custom-dropdown-item:first-child {
+  border-radius: 4px 4px 0 0;
+}
+
+.custom-dropdown-item:last-child {
+  border-radius: 0 0 4px 4px;
+}
+
+.custom-dropdown-item.selected {
+  font-weight: 600;
+}
+
+.preview-windows-container {
+  position: relative;
+  width: 100%;
+  min-height: 600px;
+  margin-top: 2rem;
+}
+
+.hyprland-window {
+  position: absolute;
+  border: 2px solid;
+  border-radius: 8px;
+  background: #0d1117;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.hyprland-window:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+}
+
+.hyprland-window.active {
+  z-index: 2;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+}
+
+.hyprland-window.inactive {
+  z-index: 1;
+  opacity: 0.95;
+}
+
+.editor-window {
+  width: 70%;
+  height: 80%;
+  top: 2%;
+  left: 3%;
+}
+
+.terminal-window {
+  width: 65%;
+  height: 70%;
+  top: 20%;
+  right: 3%;
+}
+
+.window-titlebar {
+  background: rgba(13, 17, 23, 0.9);
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  user-select: none;
+}
+
+.window-titlebar-dots {
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.window-titlebar-dots .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.window-title {
+  font-size: 0.75rem;
+  color: #c9d1d9;
+  font-weight: 500;
+  flex: 1;
+  text-align: center;
+  font-family: "Fira Code", monospace;
+}
+
+.window-titlebar-spacer {
+  width: 34px;
+  flex-shrink: 0;
+}
+
+.window-content {
+  flex: 1;
+  padding: 1rem;
+  font-family: "Fira Code", "Courier New", monospace;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #30363d #0d1117;
+}
+
+.window-content::-webkit-scrollbar {
+  width: 10px;
+}
+
+.window-content::-webkit-scrollbar-track {
+  background: #0d1117;
+  border-left: 1px solid #30363d;
+}
+
+.window-content::-webkit-scrollbar-thumb {
+  background: #30363d;
+  border-radius: 5px;
+  border: 2px solid #0d1117;
+  min-height: 40px;
+}
+
+.window-content::-webkit-scrollbar-thumb:hover {
+  background: #484f58;
+}
+
+.editor-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.editor-line {
+  display: flex;
+  align-items: flex-start;
+  min-height: 1.6em;
+}
+
+.editor-line .line-number {
+  display: inline-block;
+  width: 2.5em;
+  text-align: right;
+  padding-right: 1em;
+  flex-shrink: 0;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.editor-line-content {
+  flex: 1;
+  white-space: pre;
+  min-width: 0;
+}
+
+.terminal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.terminal-line {
+  white-space: pre;
+  min-height: 1.6em;
+}
+
+.terminal-line .cursor {
+  display: inline-block;
+  width: 0.5em;
+  height: 1.2em;
+  margin-left: 0.1em;
+  animation: blink 1s infinite;
+}
