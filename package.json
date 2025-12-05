@@ -1,0 +1,25 @@
+{
+  "name": "chromatic",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:cli": "bun build --compile --minify cli.ts --outfile dist/chromatic",
+    "build:all": "bun run build && bun run build:cli",
+    "check": "bun run format:check && bunx tsc --noEmit",
+    "preview": "vite preview",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "dependencies": {
+    "solid-js": "^1.9.10"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "prettier": "^3.7.4",
+    "vite": "^5.4.21",
+    "vite-plugin-solid": "^2.11.10",
+    "typescript": "^5.9.3"
+  }
+}

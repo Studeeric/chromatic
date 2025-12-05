@@ -1,0 +1,72 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  release:
+    types: [created]
+
+jobs:
+  lint-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Run linting and type check
+        run: bun run check
+
+      - name: Build site
+        run: bun run build
+
+      - name: Build CLI binary
+        run: bun run build:cli
+
+      - name: Prepare CLI binary for release
+        if: github.event_name == 'release'
+        run: |
+          chmod +x dist/chromatic
+          cp dist/chromatic ./chromatic
+
+      - name: Upload CLI binary
+        if: github.event_name == 'release'
+        uses: actions/upload-artifact@v4
+        with:
+          name: chromatic-cli
+          path: chromatic
+          retention-days: 30
+
+  release:
+    needs: lint-and-build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release'
+    steps:
+      - name: Download CLI binary
+        uses: actions/download-artifact@v4
+        with:
+          name: chromatic-cli
+          path: .
+
+      - name: Create release asset
+        run: |
+          tar -czf chromatic-linux-x64.tar.gz chromatic
+          sha256sum chromatic-linux-x64.tar.gz > chromatic-linux-x64.tar.gz.sha256
+
+      - name: Upload release asset
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            chromatic-linux-x64.tar.gz
+            chromatic-linux-x64.tar.gz.sha256
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
