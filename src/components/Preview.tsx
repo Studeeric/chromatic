@@ -22,7 +22,8 @@ const codeExamples = codeExamplesData;
 
 function parseCodeExample(example: CodeExample, language: Language): CodeLine[] {
   const lines = example.code.split("\n");
-  return lines.map((line) => ({
+  const filteredLines = lines.filter((line) => !line.includes("@ts-nocheck"));
+  return filteredLines.map((line) => ({
     content: line,
     tokens: highlightSyntax(line, language),
   }));
