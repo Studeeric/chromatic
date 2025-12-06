@@ -53,7 +53,7 @@ async function promptConfirmation(message: string): Promise<boolean> {
 async function main() {
   const args = process.argv.slice(2);
 
-  if (args.length === 0 || args[0] === "--help" || args[0] === "-h") {
+  if (args.length === 0 || args.includes("--help") || args.includes("-h")) {
     console.log(`
 Chromatic CLI - Configure Linux Colorschemes
 
@@ -114,6 +114,15 @@ Examples:
   const windowManagerFlags = ["--i3", "--sway", "--river"];
 
   const appFlags = [...editorFlags, ...terminalFlags, ...windowManagerFlags];
+  const validFlags = ["--help", "-h", "--yes", "-y", "--all", ...appFlags];
+
+  const unknownFlags = args.filter((arg) => arg.startsWith("-") && !validFlags.includes(arg));
+  if (unknownFlags.length > 0) {
+    console.error(`Error: Unknown flag(s): ${unknownFlags.join(", ")}`);
+    console.error(`Run with --help to see available options.`);
+    process.exit(1);
+  }
+
   const hasExplicitFlags = args.some((arg) => appFlags.includes(arg));
   const configAll = args.includes("--all") || (!hasExplicitFlags && !applications);
   const shouldConfigure = (flag: string, appFlag?: boolean): boolean =>
@@ -191,9 +200,12 @@ Examples:
   }
 
   console.log("Configuring colorscheme...\n");
-  configs.forEach(([shouldRun, configure]) => shouldRun && configure());
-
-  console.log("\n✓ Colorscheme configured successfully!");
+  configs.forEach(([shouldRun, configure, name]) => {
+    if (shouldRun) {
+      configure();
+      console.log(`✓ Configured ${name}`);
+    }
+  });
 }
 
 main().catch((error) => {

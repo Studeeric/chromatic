@@ -85,5 +85,4 @@ export function configureAlacritty(scheme: ColorScheme): void {
   }
 
   writeConfigFile(configPath, config);
-  console.log("✓ Configured Alacritty");
 }

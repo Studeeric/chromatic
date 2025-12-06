@@ -30,7 +30,7 @@ export function configureRiver(scheme: ColorScheme): void {
   ];
 
   const configDir = join(homedir(), ".config", "river");
-  updateConfigFile(join(configDir, "init"), configDir, updates, "River");
+  updateConfigFile(join(configDir, "init"), configDir, updates);
 
   try {
     execSync(`riverctl background-color ${backgroundColor}`, { stdio: "ignore" });

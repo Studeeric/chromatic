@@ -26,5 +26,5 @@ export function configureXresources(scheme: ColorScheme): void {
     { pattern: /^\*\.color15:\s+/m, line: `*.color15: ${scheme.brightWhite}` },
   ];
 
-  updateConfigFile(join(homedir(), ".Xresources"), null, updates, "Xresources");
+  updateConfigFile(join(homedir(), ".Xresources"), null, updates);
 }
