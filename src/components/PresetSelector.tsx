@@ -43,115 +43,117 @@ export default function PresetSelector(props: PresetSelectorProps) {
 
   return (
     <>
-      <button onClick={() => setIsOpen(true)} class="preset-btn">
+      <button
+        onClick={() => setIsOpen(true)}
+        class="bg-[#21262d] rounded px-4 py-2 cursor-pointer text-sm font-medium transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] relative overflow-hidden border border-[#30363d] text-[#c9d1d9] before:content-[''] before:absolute before:top-0 before:left-[-100%] before:w-full before:h-full before:bg-gradient-to-r before:from-transparent before:via-[rgba(200,209,217,0.1)] before:to-transparent before:transition-[left] before:duration-500 hover:before:left-full hover:bg-[#30363d] hover:text-[#58a6ff] hover:border-[#58a6ff] hover:shadow-[0_0_15px_rgba(88,166,255,0.2)] hover:-translate-y-0.5"
+      >
         Presets
       </button>
 
       <Show when={isOpen()}>
-        <div class="preset-overlay" onClick={() => setIsOpen(false)}>
-          <div class="preset-dialog" onClick={(e) => e.stopPropagation()}>
-            <div class="preset-header">
-              <h2 class="preset-title">Color Scheme Presets</h2>
-              <button class="preset-close" onClick={() => setIsOpen(false)}>
+        <div
+          class="fixed inset-0 bg-black/70 flex items-center justify-center z-[1000] animate-fade-in"
+          onClick={() => setIsOpen(false)}
+        >
+          <div
+            class="bg-[#161b22] rounded-lg border border-[#30363d] max-w-[900px] w-[90%] max-h-[90vh] flex flex-col shadow-[0_8px_32px_rgba(0,0,0,0.5)] animate-slide-up overflow-hidden max-[640px]:w-[95%]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div class="flex items-center justify-between p-6 border-b border-[#30363d]">
+              <h2 class="text-xl font-semibold text-[#c9d1d9] m-0">Color Scheme Presets</h2>
+              <button
+                class="bg-transparent border-0 text-[#8b949e] text-2xl leading-none cursor-pointer p-0 w-8 h-8 flex items-center justify-center rounded transition-all duration-200 hover:bg-[#21262d] hover:text-[#c9d1d9]"
+                onClick={() => setIsOpen(false)}
+              >
                 ×
               </button>
             </div>
-            <div class="preset-content">
-              <p class="preset-description">
+            <div class="p-6 overflow-y-auto flex-1 max-[640px]:p-4">
+              <p class="text-[#8b949e] text-sm mb-6 leading-relaxed">
                 Select a popular color scheme to get started. You can customize it after applying.
               </p>
-              <div class="preset-grid">
+              <div class="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-4 max-[1024px]:grid-cols-[repeat(2,1fr)] max-[768px]:grid-cols-1">
                 <For each={presets}>
                   {(preset) => (
-                    <div class="preset-card" onClick={() => handleSelect(preset)}>
-                      <div class="preset-card-header">
-                        <h3 class="preset-card-title">{preset.name}</h3>
-                        <p class="preset-card-description">{preset.description}</p>
+                    <div
+                      class="bg-[#0d1117] border border-[#30363d] rounded-md p-4 cursor-pointer transition-all duration-200 hover:border-[#58a6ff] hover:shadow-[0_4px_12px_rgba(88,166,255,0.2)] hover:-translate-y-0.5"
+                      onClick={() => handleSelect(preset)}
+                    >
+                      <div class="mb-3">
+                        <h3 class="text-base font-semibold text-[#c9d1d9] m-0 mb-1">
+                          {preset.name}
+                        </h3>
+                        <p class="text-xs text-[#8b949e] m-0 leading-snug">{preset.description}</p>
                       </div>
-                      <div class="preset-preview">
-                        <div
-                          class="preset-color-row"
-                          style={{
-                            display: "grid",
-                            "grid-template-columns": "repeat(8, 1fr)",
-                            gap: "2px",
-                          }}
-                        >
+                      <div class="mt-3">
+                        <div class="grid grid-cols-8 gap-0.5">
                           <div
-                            class="preset-color"
+                            class="aspect-square rounded-sm border border-white/10"
                             style={{
                               "background-color": preset.scheme.black,
                             }}
                             title="Black"
                           />
                           <div
-                            class="preset-color"
+                            class="aspect-square rounded-sm border border-white/10"
                             style={{
                               "background-color": preset.scheme.red,
                             }}
                             title="Red"
                           />
                           <div
-                            class="preset-color"
+                            class="aspect-square rounded-sm border border-white/10"
                             style={{
                               "background-color": preset.scheme.green,
                             }}
                             title="Green"
                           />
                           <div
-                            class="preset-color"
+                            class="aspect-square rounded-sm border border-white/10"
                             style={{
                               "background-color": preset.scheme.yellow,
                             }}
                             title="Yellow"
                           />
                           <div
-                            class="preset-color"
+                            class="aspect-square rounded-sm border border-white/10"
                             style={{
                               "background-color": preset.scheme.blue,
                             }}
                             title="Blue"
                           />
                           <div
-                            class="preset-color"
+                            class="aspect-square rounded-sm border border-white/10"
                             style={{
                               "background-color": preset.scheme.magenta,
                             }}
                             title="Magenta"
                           />
                           <div
-                            class="preset-color"
+                            class="aspect-square rounded-sm border border-white/10"
                             style={{
                               "background-color": preset.scheme.cyan,
                             }}
                             title="Cyan"
                           />
                           <div
-                            class="preset-color"
+                            class="aspect-square rounded-sm border border-white/10"
                             style={{
                               "background-color": preset.scheme.white,
                             }}
                             title="White"
                           />
                         </div>
-                        <div
-                          class="preset-color-row"
-                          style={{
-                            display: "grid",
-                            "grid-template-columns": "repeat(2, 1fr)",
-                            gap: "2px",
-                            "margin-top": "2px",
-                          }}
-                        >
+                        <div class="grid grid-cols-2 gap-0.5 mt-0.5">
                           <div
-                            class="preset-color preset-color-large"
+                            class="aspect-[2/1] rounded-sm border border-white/10"
                             style={{
                               "background-color": preset.scheme.background,
                             }}
                             title="Background"
                           />
                           <div
-                            class="preset-color preset-color-large"
+                            class="aspect-[2/1] rounded-sm border border-white/10"
                             style={{
                               "background-color": preset.scheme.foreground,
                             }}

@@ -81,14 +81,17 @@ export default function ImportJSON(props: ImportJSONProps) {
   };
 
   return (
-    <div class="import-json">
-      <h2>Import Colorscheme</h2>
-      <p class="import-description">
+    <div class="p-8 relative border-b border-[#30363d] pb-8 max-[640px]:p-4">
+      <h2 class="mb-4 text-[#c9d1d9] text-sm font-semibold">Import Colorscheme</h2>
+      <p class="text-[#8b949e] text-xs mb-8 leading-relaxed">
         Import a colorscheme from a JSON file or paste JSON content to load it into the editor.
       </p>
 
-      <div class="import-json-actions">
-        <label for="file-upload" class="import-file-btn">
+      <div class="flex gap-4 mb-8">
+        <label
+          for="file-upload"
+          class="flex-1 bg-[#21262d] text-[#c9d1d9] border border-[#30363d] rounded px-4 py-3 cursor-pointer text-xs font-medium transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] relative overflow-hidden text-center block m-0 before:content-[''] before:absolute before:top-0 before:left-[-100%] before:w-full before:h-full before:bg-gradient-to-r before:from-transparent before:via-[rgba(200,209,217,0.1)] before:to-transparent before:transition-[left] before:duration-500 hover:before:left-full hover:bg-[#30363d] hover:text-[#58a6ff] hover:border-[#58a6ff] hover:shadow-[0_0_15px_rgba(88,166,255,0.2)] hover:-translate-y-0.5"
+        >
           Upload JSON File
           <input
             id="file-upload"
@@ -100,27 +103,38 @@ export default function ImportJSON(props: ImportJSONProps) {
         </label>
       </div>
 
-      <div class="import-divider">
-        <span>or</span>
+      <div class="flex items-center text-center my-8 text-[#8b949e] text-xs before:content-[''] before:flex-1 before:border-b before:border-[#30363d] after:content-[''] after:flex-1 after:border-b after:border-[#30363d]">
+        <span class="px-4">or</span>
       </div>
 
-      <div class="import-paste-section">
-        <label for="json-paste" class="import-label">
+      <div class="flex flex-col gap-4">
+        <label for="json-paste" class="text-[#c9d1d9] text-sm font-medium">
           Paste JSON:
         </label>
         <textarea
           id="json-paste"
-          class="import-textarea"
+          class="bg-[#0d1117] border border-[#30363d] rounded px-3 py-3 text-[#c9d1d9] font-mono text-sm resize-y min-h-[120px] transition-[border-color] duration-200 focus:outline-none focus:border-[#58a6ff] placeholder:text-[#484f58]"
           placeholder='{"black": "#000000", "red": "#cd3131", ...}'
           value={jsonText()}
           onInput={(e) => handleTextChange(e.currentTarget.value)}
         />
-        <button onClick={handlePaste} class={`import-paste-btn ${success() ? "success" : ""}`}>
+        <button
+          onClick={handlePaste}
+          class={`bg-[#21262d] text-[#c9d1d9] border border-[#30363d] rounded px-4 py-3 cursor-pointer text-xs font-medium transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] relative overflow-hidden before:content-[''] before:absolute before:top-0 before:left-[-100%] before:w-full before:h-full before:bg-gradient-to-r before:from-transparent before:via-[rgba(200,209,217,0.1)] before:to-transparent before:transition-[left] before:duration-500 hover:before:left-full hover:bg-[#30363d] hover:text-[#58a6ff] hover:border-[#58a6ff] hover:shadow-[0_0_15px_rgba(88,166,255,0.2)] hover:-translate-y-0.5 ${
+            success()
+              ? "bg-[#58a6ff] text-white border-[#58a6ff] hover:bg-[#58a6ff] hover:border-[#58a6ff] hover:shadow-[0_0_20px_rgba(88,166,255,0.4),0_4px_12px_rgba(88,166,255,0.2)]"
+              : ""
+          }`}
+        >
           {success() ? "Imported!" : "Import from Text"}
         </button>
       </div>
 
-      {error() && <div class="import-error">{error()}</div>}
+      {error() && (
+        <div class="bg-[#21262d] border border-[#f85149] rounded px-4 py-3 text-[#f85149] text-xs mt-4">
+          {error()}
+        </div>
+      )}
     </div>
   );
 }

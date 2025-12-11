@@ -158,34 +158,62 @@ export default function App() {
   };
 
   return (
-    <div class="app">
-      <header class="header">
-        <div class="header-content">
-          <div class="logo-container">
-            <img src={faviconUrl} alt="Chromatic" class="logo" />
-            <h1 class="app-title">Chromatic</h1>
+    <div class="font-mono bg-[#0d1117] text-[#c9d1d9] min-h-screen leading-relaxed flex flex-col">
+      <header class="bg-[#161b22] py-4 border-b border-[#30363d]">
+        <div class="max-w-[1600px] mx-auto px-8 flex items-center justify-between gap-8 relative flex-wrap max-[1024px]:px-6 max-[1024px]:gap-4 max-[768px]:px-4 max-[768px]:gap-3 max-[640px]:flex-col max-[640px]:items-stretch max-[640px]:gap-4">
+          <div class="flex items-center gap-3 max-[640px]:justify-center">
+            <img src={faviconUrl} alt="Chromatic" class="w-8 h-8" />
+            <h1 class="text-xl font-semibold bg-gradient-to-r from-[#58a6ff] via-[#bc8cff] via-[#f85149] via-[#3fb950] to-[#58a6ff] bg-[length:200%_100%] bg-clip-text text-transparent animate-chromatic-shift tracking-wide">
+              Chromatic
+            </h1>
           </div>
-          <div class="tab-group" data-active={activeTab()} ref={tabGroupRef}>
+          <div
+            class="inline-flex absolute left-1/2 -translate-x-1/2 bg-[#0d1117] border border-[#30363d] rounded-md p-1 gap-0 flex-wrap justify-center overflow-hidden shadow-[0_2px_8px_rgba(0,0,0,0.2)] max-[1024px]:order-3 max-[1024px]:w-auto max-[1024px]:max-w-full max-[1024px]:relative max-[1024px]:left-auto max-[1024px]:translate-x-0 max-[1024px]:mt-2 max-[1024px]:mx-auto max-[640px]:order-2 max-[640px]:w-auto max-[640px]:max-w-full max-[640px]:relative max-[640px]:left-auto max-[640px]:translate-x-0 max-[640px]:mx-auto"
+            data-active={activeTab()}
+            ref={tabGroupRef}
+            style={{
+              "--indicator-left": "0.25rem",
+              "--indicator-width": "100px",
+            }}
+          >
+            <div
+              class="absolute top-1 bottom-1 rounded transition-all duration-[400ms] ease-[cubic-bezier(0.4,0,0.2,1)] z-0 pointer-events-none bg-gradient-to-br from-[rgba(88,166,255,0.2)] to-[rgba(88,166,255,0.1)] border border-[rgba(88,166,255,0.4)] shadow-[0_0_20px_rgba(88,166,255,0.3),inset_0_1px_0_rgba(255,255,255,0.1)]"
+              style={{
+                left: "var(--indicator-left, 0.25rem)",
+                width: "var(--indicator-width, 100px)",
+                "max-width": "calc(100% - 0.5rem)",
+              }}
+            />
             <button
               ref={previewTabRef}
-              class={`tab-btn ${activeTab() === "preview" ? "active" : ""}`}
+              class={`bg-transparent border-0 py-2 px-4 text-[#8b949e] text-sm font-medium cursor-pointer transition-colors duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] rounded relative z-[1] whitespace-nowrap flex items-center justify-center leading-none min-h-[44px] touch-manipulation ${
+                activeTab() === "preview"
+                  ? "text-[#58a6ff] [text-shadow:0_0_8px_rgba(88,166,255,0.5)]"
+                  : "hover:text-[#c9d1d9]"
+              }`}
               onClick={() => handleTabChange("preview")}
             >
               Color Palette
             </button>
             <button
               ref={exportTabRef}
-              class={`tab-btn ${activeTab() === "export" ? "active" : ""}`}
+              class={`bg-transparent border-0 py-2 px-4 text-[#8b949e] text-sm font-medium cursor-pointer transition-colors duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] rounded relative z-[1] whitespace-nowrap flex items-center justify-center leading-none min-h-[44px] touch-manipulation ${
+                activeTab() === "export"
+                  ? "text-[#58a6ff] [text-shadow:0_0_8px_rgba(88,166,255,0.5)]"
+                  : "hover:text-[#c9d1d9]"
+              }`}
               onClick={() => handleTabChange("export")}
             >
               Export
             </button>
           </div>
-          <div style={{ display: "flex", gap: "1rem", "align-items": "center" }}>
+          <div class="flex gap-4 items-center max-[640px]:order-3 max-[640px]:w-full max-[640px]:justify-center">
             <PresetSelector onSelect={setScheme} />
             <button
               onClick={handleImageExtractClick}
-              class={`extract-image-btn ${imageExtracting() ? "loading" : ""}`}
+              class={`bg-[#21262d] rounded px-4 py-2 cursor-pointer text-sm font-medium transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] relative overflow-hidden border border-[#30363d] text-[#c9d1d9] before:content-[''] before:absolute before:top-0 before:left-[-100%] before:w-full before:h-full before:bg-gradient-to-r before:from-transparent before:via-[rgba(200,209,217,0.1)] before:to-transparent before:transition-[left] before:duration-500 hover:before:left-full hover:bg-[#30363d] hover:text-[#58a6ff] hover:border-[#58a6ff] hover:shadow-[0_0_15px_rgba(88,166,255,0.2)] hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60 ${
+                imageExtracting() ? "cursor-not-allowed opacity-60" : ""
+              }`}
               disabled={imageExtracting()}
             >
               {imageExtracting() ? "Extracting..." : "Extract from Image"}
@@ -199,26 +227,29 @@ export default function App() {
               disabled={imageExtracting()}
               style="display: none;"
             />
-            <button onClick={handleResetClick} class="reset-btn">
+            <button
+              onClick={handleResetClick}
+              class="bg-[#21262d] rounded px-4 py-2 cursor-pointer text-sm font-medium transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] relative overflow-hidden border border-[#30363d] text-[#c9d1d9] before:content-[''] before:absolute before:top-0 before:left-[-100%] before:w-full before:h-full before:bg-gradient-to-r before:from-transparent before:via-[rgba(200,209,217,0.1)] before:to-transparent before:transition-[left] before:duration-500 hover:before:left-full hover:bg-[#30363d] hover:text-[#58a6ff] hover:border-[#58a6ff] hover:shadow-[0_0_15px_rgba(88,166,255,0.2)] hover:-translate-y-0.5"
+            >
               Reset to Default
             </button>
           </div>
         </div>
       </header>
-      <main class="main">
-        <div class="left-panel">
-          <div class="tab-content">
+      <main class="flex-1 grid grid-cols-2 gap-8 p-8 max-w-[1600px] mx-auto w-full box-border max-[1400px]:p-6 max-[1400px]:gap-6 max-[1200px]:p-5 max-[1200px]:gap-5 max-[1024px]:grid-cols-1 max-[1024px]:p-6 max-[1024px]:gap-6 max-[768px]:p-4 max-[768px]:gap-4 max-[640px]:p-3 max-[640px]:gap-3">
+        <div class="flex flex-col gap-6">
+          <div class="bg-[#161b22] rounded-lg border border-[#30363d] overflow-hidden shadow-[0_1px_3px_rgba(0,0,0,0.3)] max-h-[calc(100vh-200px)] flex flex-col overflow-y-auto relative scrollbar-custom max-[1024px]:max-h-[calc(100vh-250px)] max-[768px]:max-h-[calc(100vh-220px)]">
             {activeTab() === "preview" ? (
               <ColorPicker scheme={scheme()} onColorChange={handleColorChange} />
             ) : (
-              <div class="import-export-container">
+              <div class="flex flex-col gap-0">
                 <ImportJSON onImport={handleImport} />
                 <ExportJSON scheme={scheme()} />
               </div>
             )}
           </div>
         </div>
-        <div class="right-panel">
+        <div>
           <Preview scheme={scheme()} />
         </div>
       </main>

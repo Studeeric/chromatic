@@ -296,25 +296,33 @@ export default function ColorPicker(props: ColorPickerProps) {
 
   return (
     <>
-      <div class="color-picker">
-        <div class="color-section">
-          <h3 class="color-section-title">Terminal Colors</h3>
-          <div class="color-grid">
+      <div class="p-6 relative flex flex-col gap-6 flex-1 min-h-0 max-[768px]:p-5 max-[640px]:p-4 max-[640px]:gap-4">
+        <div class="flex flex-col gap-3">
+          <h3 class="text-[#c9d1d9] text-lg font-semibold uppercase tracking-wide m-0">
+            Terminal Colors
+          </h3>
+          <div class="grid grid-cols-8 gap-2 max-[1400px]:grid-cols-4 max-[1024px]:grid-cols-4 max-[768px]:grid-cols-2 max-[640px]:grid-cols-2">
             <For each={colorNames}>
               {(color) => {
                 const colorNum = terminalColorNumbers[color.key];
                 return (
                   <div
-                    class="color-swatch"
+                    class="aspect-square rounded cursor-pointer relative overflow-hidden transition-all duration-150 border-2 border-white/8 flex flex-col justify-end hover:scale-105 hover:shadow-lg hover:border-white/25 hover:z-10 active:translate-y-0"
                     style={{ "background-color": props.scheme[color.key] }}
                     onClick={(e) => handleColorClick(color.key, e)}
                   >
-                    <div class="color-swatch-content">
-                      <div class="color-label-row">
-                        <span class="color-number">{colorNum}</span>
-                        <span class="color-label">{color.label}</span>
+                    <div class="bg-gradient-to-t from-black/90 to-transparent p-1 text-white flex flex-col gap-0.5 w-full">
+                      <div class="flex items-center gap-1">
+                        <span class="text-[0.65rem] font-bold bg-white/25 px-1 py-0.5 rounded font-mono [text-shadow:none] leading-tight">
+                          {colorNum}
+                        </span>
+                        <span class="text-[0.7rem] font-semibold uppercase tracking-wide [text-shadow:0_1px_2px_rgba(0,0,0,0.6)] leading-tight">
+                          {color.label}
+                        </span>
                       </div>
-                      <span class="color-hex">{props.scheme[color.key]}</span>
+                      <span class="text-[0.7rem] font-mono opacity-95 [text-shadow:0_1px_2px_rgba(0,0,0,0.6)] leading-tight">
+                        {props.scheme[color.key]}
+                      </span>
                     </div>
                   </div>
                 );
@@ -323,63 +331,87 @@ export default function ColorPicker(props: ColorPickerProps) {
           </div>
         </div>
 
-        <div class="color-section">
-          <h3 class="color-section-title">Base Colors</h3>
-          <div class="color-grid color-grid-special">
+        <div class="flex flex-col gap-3">
+          <h3 class="text-[#c9d1d9] text-lg font-semibold uppercase tracking-wide m-0">
+            Base Colors
+          </h3>
+          <div class="grid grid-cols-2 gap-2 max-[1024px]:grid-cols-1">
             <div
-              class="color-swatch color-swatch-special"
+              class="aspect-[2/1] rounded cursor-pointer relative overflow-hidden transition-all duration-150 border-2 border-white/8 flex flex-col justify-end hover:scale-105 hover:shadow-lg hover:border-white/25 hover:z-10 active:translate-y-0"
               style={{ "background-color": props.scheme.background }}
               onClick={(e) => handleColorClick("background", e)}
             >
-              <div class="color-swatch-content">
-                <span class="color-label">Background</span>
-                <span class="color-hex">{props.scheme.background}</span>
+              <div class="bg-gradient-to-t from-black/90 to-transparent p-1 text-white flex flex-col gap-0.5 w-full">
+                <span class="text-[0.7rem] font-semibold uppercase tracking-wide [text-shadow:0_1px_2px_rgba(0,0,0,0.6)] leading-tight">
+                  Background
+                </span>
+                <span class="text-[0.7rem] font-mono opacity-95 [text-shadow:0_1px_2px_rgba(0,0,0,0.6)] leading-tight">
+                  {props.scheme.background}
+                </span>
               </div>
             </div>
             <div
-              class="color-swatch color-swatch-special"
+              class="aspect-[2/1] rounded cursor-pointer relative overflow-hidden transition-all duration-150 border-2 border-white/8 flex flex-col justify-end hover:scale-105 hover:shadow-lg hover:border-white/25 hover:z-10 active:translate-y-0"
               style={{ "background-color": props.scheme.foreground }}
               onClick={(e) => handleColorClick("foreground", e)}
             >
-              <div class="color-swatch-content">
-                <span class="color-label">Foreground</span>
-                <span class="color-hex">{props.scheme.foreground}</span>
+              <div class="bg-gradient-to-t from-black/90 to-transparent p-1 text-white flex flex-col gap-0.5 w-full">
+                <span class="text-[0.7rem] font-semibold uppercase tracking-wide [text-shadow:0_1px_2px_rgba(0,0,0,0.6)] leading-tight">
+                  Foreground
+                </span>
+                <span class="text-[0.7rem] font-mono opacity-95 [text-shadow:0_1px_2px_rgba(0,0,0,0.6)] leading-tight">
+                  {props.scheme.foreground}
+                </span>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="color-section">
-          <h3 class="color-section-title">Window Borders</h3>
-          <div class="color-grid color-grid-border">
+        <div class="flex flex-col gap-3">
+          <h3 class="text-[#c9d1d9] text-lg font-semibold uppercase tracking-wide m-0">
+            Window Borders
+          </h3>
+          <div class="grid grid-cols-3 gap-2 max-[768px]:grid-cols-2 max-[640px]:grid-cols-2">
             <div
-              class="color-swatch color-swatch-border"
+              class="aspect-square rounded cursor-pointer relative overflow-hidden transition-all duration-150 border-2 border-white/8 flex flex-col justify-end hover:scale-105 hover:shadow-lg hover:border-white/25 hover:z-10 active:translate-y-0"
               style={{ "background-color": props.scheme.activeBorder }}
               onClick={(e) => handleColorClick("activeBorder", e)}
             >
-              <div class="color-swatch-content">
-                <span class="color-label">Active</span>
-                <span class="color-hex">{props.scheme.activeBorder}</span>
+              <div class="bg-gradient-to-t from-black/90 to-transparent p-1 text-white flex flex-col gap-0.5 w-full">
+                <span class="text-[0.7rem] font-semibold uppercase tracking-wide [text-shadow:0_1px_2px_rgba(0,0,0,0.6)] leading-tight">
+                  Active
+                </span>
+                <span class="text-[0.7rem] font-mono opacity-95 [text-shadow:0_1px_2px_rgba(0,0,0,0.6)] leading-tight">
+                  {props.scheme.activeBorder}
+                </span>
               </div>
             </div>
             <div
-              class="color-swatch color-swatch-border"
+              class="aspect-square rounded cursor-pointer relative overflow-hidden transition-all duration-150 border-2 border-white/8 flex flex-col justify-end hover:scale-105 hover:shadow-lg hover:border-white/25 hover:z-10 active:translate-y-0"
               style={{ "background-color": props.scheme.inactiveBorder }}
               onClick={(e) => handleColorClick("inactiveBorder", e)}
             >
-              <div class="color-swatch-content">
-                <span class="color-label">Inactive</span>
-                <span class="color-hex">{props.scheme.inactiveBorder}</span>
+              <div class="bg-gradient-to-t from-black/90 to-transparent p-1 text-white flex flex-col gap-0.5 w-full">
+                <span class="text-[0.7rem] font-semibold uppercase tracking-wide [text-shadow:0_1px_2px_rgba(0,0,0,0.6)] leading-tight">
+                  Inactive
+                </span>
+                <span class="text-[0.7rem] font-mono opacity-95 [text-shadow:0_1px_2px_rgba(0,0,0,0.6)] leading-tight">
+                  {props.scheme.inactiveBorder}
+                </span>
               </div>
             </div>
             <div
-              class="color-swatch color-swatch-border"
+              class="aspect-square rounded cursor-pointer relative overflow-hidden transition-all duration-150 border-2 border-white/8 flex flex-col justify-end hover:scale-105 hover:shadow-lg hover:border-white/25 hover:z-10 active:translate-y-0"
               style={{ "background-color": props.scheme.urgentBorder }}
               onClick={(e) => handleColorClick("urgentBorder", e)}
             >
-              <div class="color-swatch-content">
-                <span class="color-label">Urgent</span>
-                <span class="color-hex">{props.scheme.urgentBorder}</span>
+              <div class="bg-gradient-to-t from-black/90 to-transparent p-1 text-white flex flex-col gap-0.5 w-full">
+                <span class="text-[0.7rem] font-semibold uppercase tracking-wide [text-shadow:0_1px_2px_rgba(0,0,0,0.6)] leading-tight">
+                  Urgent
+                </span>
+                <span class="text-[0.7rem] font-mono opacity-95 [text-shadow:0_1px_2px_rgba(0,0,0,0.6)] leading-tight">
+                  {props.scheme.urgentBorder}
+                </span>
               </div>
             </div>
           </div>
@@ -389,30 +421,33 @@ export default function ColorPicker(props: ColorPickerProps) {
       <Show when={pickerState()}>
         {(state) => {
           return (
-            <div class="color-picker-backdrop" onClick={handleBackdropClick}>
+            <div class="fixed inset-0 bg-black/50 z-[1000]" onClick={handleBackdropClick}>
               <div
-                class="color-picker-popup"
+                class="fixed bg-[#161b22] border border-[#30363d] rounded-lg shadow-[0_8px_32px_rgba(0,0,0,0.5)] -translate-x-1/2 z-[1001] w-[300px] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-2rem)] overflow-y-auto animate-color-picker-fade-in box-border max-[640px]:w-[calc(100vw-1rem)] max-[640px]:max-w-[300px]"
                 style={{
                   left: `${state().x}px`,
                   top: `${state().y}px`,
                 }}
                 onClick={(e) => e.stopPropagation()}
               >
-                <div class="color-picker-header">
-                  <span class="color-picker-title">Pick Color</span>
-                  <button class="color-picker-close" onClick={closePicker}>
+                <div class="flex items-center justify-between py-4 px-5 border-b border-[#30363d]">
+                  <span class="text-[#c9d1d9] text-sm font-semibold">Pick Color</span>
+                  <button
+                    class="bg-transparent border-0 text-[#8b949e] text-2xl leading-none cursor-pointer p-1 w-8 h-8 flex items-center justify-center rounded transition-all duration-200 font-light hover:bg-[#21262d] hover:text-[#c9d1d9]"
+                    onClick={closePicker}
+                  >
                     ×
                   </button>
                 </div>
-                <div class="color-picker-content">
-                  <div class="color-picker-main">
-                    <div class="color-picker-spectrum-container">
+                <div class="p-5 flex flex-col gap-5">
+                  <div class="flex gap-2 max-[640px]:flex-col">
+                    <div class="flex flex-col gap-2">
                       {(() => {
                         const current = hsv();
                         return (
                           <>
                             <div
-                              class="color-spectrum"
+                              class="color-spectrum w-[250px] h-[200px] rounded-md border border-[#30363d] cursor-crosshair relative overflow-hidden max-[640px]:w-full max-[640px]:max-w-[250px]"
                               style={{ background: getSpectrumGradient() }}
                               onClick={handleSpectrumClick}
                               onMouseDown={(e) => {
@@ -421,7 +456,7 @@ export default function ColorPicker(props: ColorPickerProps) {
                               }}
                             >
                               <div
-                                class="color-spectrum-marker"
+                                class="absolute w-3 h-3 border-2 border-white rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none [box-shadow:0_0_0_1px_rgba(0,0,0,0.5)]"
                                 style={{
                                   left: `${current.s}%`,
                                   top: `${100 - current.v}%`,
@@ -429,7 +464,7 @@ export default function ColorPicker(props: ColorPickerProps) {
                               />
                             </div>
                             <div
-                              class="color-hue"
+                              class="color-hue w-[250px] h-5 rounded-md border border-[#30363d] cursor-pointer relative overflow-hidden max-[640px]:w-full max-[640px]:max-w-[250px]"
                               style={{ background: getHueGradient() }}
                               onClick={handleHueClick}
                               onMouseDown={(e) => {
@@ -438,7 +473,7 @@ export default function ColorPicker(props: ColorPickerProps) {
                               }}
                             >
                               <div
-                                class="color-hue-marker"
+                                class="absolute top-0 bottom-0 w-1 bg-white border-2 border-black/50 -translate-x-1/2 pointer-events-none [box-shadow:0_0_0_1px_rgba(255,255,255,0.5)]"
                                 style={{
                                   left: `${(current.h / 360) * 100}%`,
                                 }}
@@ -449,18 +484,25 @@ export default function ColorPicker(props: ColorPickerProps) {
                       })()}
                     </div>
                   </div>
-                  <div class="color-picker-inputs">
+                  <div class="flex flex-col gap-3">
                     {(() => {
                       const current = hsv();
                       const rgb = hsvToRgb(current.h, current.s / 100, current.v / 100);
                       const hex = rgbToHex(rgb.r, rgb.g, rgb.b);
                       return (
                         <>
-                          <div class="color-picker-preview" style={{ "background-color": hex }} />
-                          <div class="color-picker-hex">
-                            <label>Hex:</label>
-                            <div class="color-picker-hex-wrapper">
-                              <span class="color-picker-hex-prefix">#</span>
+                          <div
+                            class="w-full h-[50px] rounded-md border border-[#30363d]"
+                            style={{ "background-color": hex }}
+                          />
+                          <div class="flex items-center gap-2">
+                            <label class="text-[#8b949e] text-sm font-medium min-w-[40px]">
+                              Hex:
+                            </label>
+                            <div class="relative flex-1 flex items-center">
+                              <span class="absolute left-2 text-[#8b949e] font-mono text-sm pointer-events-none select-none z-10">
+                                #
+                              </span>
                               <input
                                 type="text"
                                 value={hex.substring(1)}
@@ -484,14 +526,16 @@ export default function ColorPicker(props: ColorPickerProps) {
                                     props.onColorChange(state().key, fullHex);
                                   }
                                 }}
-                                class="color-picker-hex-input"
+                                class="flex-1 bg-[#0d1117] border border-[#30363d] rounded px-2 py-2 pl-6 text-[#c9d1d9] font-mono text-sm transition-[border-color] duration-200 focus:outline-none focus:border-[#58a6ff]"
                               />
                             </div>
                           </div>
-                          <div class="color-picker-rgb">
-                            <div class="color-picker-rgb-item">
-                              <label>R:</label>
-                              <div class="color-picker-number-input">
+                          <div class="flex gap-2">
+                            <div class="flex-1 flex items-center gap-1 min-w-0">
+                              <label class="text-[#8b949e] text-sm font-medium flex-shrink-0">
+                                R:
+                              </label>
+                              <div class="flex-1 flex items-stretch bg-[#0d1117] border border-[#30363d] rounded overflow-hidden min-w-0 focus-within:border-[#58a6ff]">
                                 <input
                                   type="text"
                                   value={rgb.r}
@@ -520,12 +564,12 @@ export default function ColorPicker(props: ColorPickerProps) {
                                     );
                                     e.currentTarget.value = r.toString();
                                   }}
-                                  class="color-picker-rgb-input"
+                                  class="flex-1 bg-transparent border-0 px-2 py-2 text-[#c9d1d9] font-mono text-sm transition-[border-color] duration-200 w-0 min-w-0 box-border focus:outline-none"
                                 />
-                                <div class="color-picker-number-buttons">
+                                <div class="flex flex-col border-l border-[#30363d] flex-shrink-0">
                                   <button
                                     type="button"
-                                    class="color-picker-number-btn"
+                                    class="bg-transparent border-0 text-[#8b949e] text-[0.65rem] leading-none px-1 py-1 cursor-pointer transition-all duration-200 flex items-center justify-center flex-1 select-none hover:bg-[#21262d] hover:text-[#c9d1d9] active:bg-[#30363d]"
                                     onClick={(e) => {
                                       e.preventDefault();
                                       e.stopPropagation();
@@ -547,7 +591,7 @@ export default function ColorPicker(props: ColorPickerProps) {
                                   </button>
                                   <button
                                     type="button"
-                                    class="color-picker-number-btn"
+                                    class="bg-transparent border-0 text-[#8b949e] text-[0.65rem] leading-none px-1 py-1 cursor-pointer transition-all duration-200 flex items-center justify-center flex-1 select-none hover:bg-[#21262d] hover:text-[#c9d1d9] active:bg-[#30363d]"
                                     onClick={(e) => {
                                       e.preventDefault();
                                       e.stopPropagation();
@@ -570,9 +614,11 @@ export default function ColorPicker(props: ColorPickerProps) {
                                 </div>
                               </div>
                             </div>
-                            <div class="color-picker-rgb-item">
-                              <label>G:</label>
-                              <div class="color-picker-number-input">
+                            <div class="flex-1 flex items-center gap-1 min-w-0">
+                              <label class="text-[#8b949e] text-sm font-medium flex-shrink-0">
+                                G:
+                              </label>
+                              <div class="flex-1 flex items-stretch bg-[#0d1117] border border-[#30363d] rounded overflow-hidden min-w-0 focus-within:border-[#58a6ff]">
                                 <input
                                   type="text"
                                   value={rgb.g}
@@ -601,12 +647,12 @@ export default function ColorPicker(props: ColorPickerProps) {
                                     );
                                     e.currentTarget.value = g.toString();
                                   }}
-                                  class="color-picker-rgb-input"
+                                  class="flex-1 bg-transparent border-0 px-2 py-2 text-[#c9d1d9] font-mono text-sm transition-[border-color] duration-200 w-0 min-w-0 box-border focus:outline-none"
                                 />
-                                <div class="color-picker-number-buttons">
+                                <div class="flex flex-col border-l border-[#30363d] flex-shrink-0">
                                   <button
                                     type="button"
-                                    class="color-picker-number-btn"
+                                    class="bg-transparent border-0 text-[#8b949e] text-[0.65rem] leading-none px-1 py-1 cursor-pointer transition-all duration-200 flex items-center justify-center flex-1 select-none hover:bg-[#21262d] hover:text-[#c9d1d9] active:bg-[#30363d]"
                                     onClick={(e) => {
                                       e.preventDefault();
                                       e.stopPropagation();
@@ -628,7 +674,7 @@ export default function ColorPicker(props: ColorPickerProps) {
                                   </button>
                                   <button
                                     type="button"
-                                    class="color-picker-number-btn"
+                                    class="bg-transparent border-0 text-[#8b949e] text-[0.65rem] leading-none px-1 py-1 cursor-pointer transition-all duration-200 flex items-center justify-center flex-1 select-none hover:bg-[#21262d] hover:text-[#c9d1d9] active:bg-[#30363d]"
                                     onClick={(e) => {
                                       e.preventDefault();
                                       e.stopPropagation();
@@ -651,9 +697,11 @@ export default function ColorPicker(props: ColorPickerProps) {
                                 </div>
                               </div>
                             </div>
-                            <div class="color-picker-rgb-item">
-                              <label>B:</label>
-                              <div class="color-picker-number-input">
+                            <div class="flex-1 flex items-center gap-1 min-w-0">
+                              <label class="text-[#8b949e] text-sm font-medium flex-shrink-0">
+                                B:
+                              </label>
+                              <div class="flex-1 flex items-stretch bg-[#0d1117] border border-[#30363d] rounded overflow-hidden min-w-0 focus-within:border-[#58a6ff]">
                                 <input
                                   type="text"
                                   value={rgb.b}
@@ -682,12 +730,12 @@ export default function ColorPicker(props: ColorPickerProps) {
                                     );
                                     e.currentTarget.value = b.toString();
                                   }}
-                                  class="color-picker-rgb-input"
+                                  class="flex-1 bg-transparent border-0 px-2 py-2 text-[#c9d1d9] font-mono text-sm transition-[border-color] duration-200 w-0 min-w-0 box-border focus:outline-none"
                                 />
-                                <div class="color-picker-number-buttons">
+                                <div class="flex flex-col border-l border-[#30363d] flex-shrink-0">
                                   <button
                                     type="button"
-                                    class="color-picker-number-btn"
+                                    class="bg-transparent border-0 text-[#8b949e] text-[0.65rem] leading-none px-1 py-1 cursor-pointer transition-all duration-200 flex items-center justify-center flex-1 select-none hover:bg-[#21262d] hover:text-[#c9d1d9] active:bg-[#30363d]"
                                     onClick={(e) => {
                                       e.preventDefault();
                                       e.stopPropagation();
@@ -709,7 +757,7 @@ export default function ColorPicker(props: ColorPickerProps) {
                                   </button>
                                   <button
                                     type="button"
-                                    class="color-picker-number-btn"
+                                    class="bg-transparent border-0 text-[#8b949e] text-[0.65rem] leading-none px-1 py-1 cursor-pointer transition-all duration-200 flex items-center justify-center flex-1 select-none hover:bg-[#21262d] hover:text-[#c9d1d9] active:bg-[#30363d]"
                                     onClick={(e) => {
                                       e.preventDefault();
                                       e.stopPropagation();
