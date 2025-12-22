@@ -24,7 +24,7 @@ export function configureWindowManager(scheme: ColorScheme, wmName: "i3" | "sway
   ];
 
   const configDir = join(homedir(), ".config", wmName);
-  updateConfigFile(join(configDir, "config"), configDir, updates, wmName);
+  updateConfigFile(join(configDir, "config"), configDir, updates);
 }
 
 export function configureI3(scheme: ColorScheme): void {

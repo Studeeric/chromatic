@@ -27,5 +27,5 @@ export function configureKitty(scheme: ColorScheme): void {
   ];
 
   const configDir = join(homedir(), ".config", "kitty");
-  updateConfigFile(join(configDir, "kitty.conf"), configDir, updates, "Kitty");
+  updateConfigFile(join(configDir, "kitty.conf"), configDir, updates);
 }

@@ -44,7 +44,6 @@ export function updateConfigFile(
   configPath: string,
   configDir: string | null,
   updates: ConfigUpdate[],
-  appName: string,
   preprocess?: (content: string) => string
 ): void {
   if (configDir) {
@@ -62,7 +61,6 @@ export function updateConfigFile(
   }
 
   writeConfigFile(configPath, content);
-  console.log(`✓ Configured ${appName}`);
 }
 
 export function stripHash(hex: string): string {

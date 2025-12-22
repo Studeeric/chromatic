@@ -4,21 +4,34 @@ import type { ColorScheme } from "../types";
 
 interface Config {
   applications?: {
+    // Editors
     vim?: boolean;
+    vscode?: boolean;
+    cursor?: boolean;
+    // Terminals
     foot?: boolean;
     alacritty?: boolean;
     kitty?: boolean;
     xresources?: boolean;
+    // Window Managers
     i3?: boolean;
     sway?: boolean;
     river?: boolean;
   };
 }
+
+// Editors
 import { configureVim } from "./configs/vim";
+import { configureVSCode } from "./configs/vscode";
+import { configureCursor } from "./configs/cursor";
+
+// Terminals
 import { configureFoot } from "./configs/foot";
 import { configureAlacritty } from "./configs/alacritty";
 import { configureKitty } from "./configs/kitty";
 import { configureXresources } from "./configs/xresources";
+
+// Window Managers
 import { configureI3 } from "./configs/i3";
 import { configureSway } from "./configs/sway";
 import { configureRiver } from "./configs/river";
@@ -40,7 +53,7 @@ async function promptConfirmation(message: string): Promise<boolean> {
 async function main() {
   const args = process.argv.slice(2);
 
-  if (args.length === 0 || args[0] === "--help" || args[0] === "-h") {
+  if (args.length === 0 || args.includes("--help") || args.includes("-h")) {
     console.log(`
 Chromatic CLI - Configure Linux Colorschemes
 
@@ -51,14 +64,22 @@ Options:
   --help, -h     Show this help message
   --yes, -y      Skip confirmation prompt
   --all          Configure all supported applications
+
+Editors:
   --vim          Configure Vim
+  --vscode       Configure VSCode theme
+  --cursor       Configure Cursor theme
+
+Terminals:
   --foot         Configure Foot terminal
   --alacritty    Configure Alacritty
   --kitty        Configure Kitty
   --xresources   Configure Xresources
+
+Window Managers:
   --i3           Configure i3 window manager borders
   --sway         Configure Sway window manager borders
-  --river        Configure River window manager
+  --river        Configure River window manager borders
 
 Examples:
   chromatic colorscheme.json --all
@@ -85,23 +106,45 @@ Examples:
   const data: ColorScheme & Config = JSON.parse(jsonContent);
   const { applications, ...scheme } = data;
 
-  const appFlags = [
-    "--vim",
-    "--foot",
-    "--alacritty",
-    "--kitty",
-    "--xresources",
-    "--i3",
-    "--sway",
-    "--river",
-  ];
+  // Editors
+  const editorFlags = ["--vim", "--vscode", "--cursor"];
+  // Terminals
+  const terminalFlags = ["--foot", "--alacritty", "--kitty", "--xresources"];
+  // Window Managers
+  const windowManagerFlags = ["--i3", "--sway", "--river"];
+
+  const appFlags = [...editorFlags, ...terminalFlags, ...windowManagerFlags];
+  const validFlags = ["--help", "-h", "--yes", "-y", "--all", ...appFlags];
+
+  const unknownFlags = args.filter((arg) => arg.startsWith("-") && !validFlags.includes(arg));
+  if (unknownFlags.length > 0) {
+    console.error(`Error: Unknown flag(s): ${unknownFlags.join(", ")}`);
+    console.error(`Run with --help to see available options.`);
+    process.exit(1);
+  }
+
   const hasExplicitFlags = args.some((arg) => appFlags.includes(arg));
   const configAll = args.includes("--all") || (!hasExplicitFlags && !applications);
   const shouldConfigure = (flag: string, appFlag?: boolean): boolean =>
     configAll || args.includes(flag) || (appFlag ?? false);
 
-  const configs: Array<[boolean, () => void, string]> = [
+  // Editors
+  const editorConfigs: Array<[boolean, () => void, string]> = [
     [shouldConfigure("--vim", applications?.vim ?? false), () => configureVim(scheme), "Vim"],
+    [
+      shouldConfigure("--vscode", applications?.vscode ?? false),
+      () => configureVSCode(scheme),
+      "VSCode",
+    ],
+    [
+      shouldConfigure("--cursor", applications?.cursor ?? false),
+      () => configureCursor(scheme),
+      "Cursor",
+    ],
+  ];
+
+  // Terminals
+  const terminalConfigs: Array<[boolean, () => void, string]> = [
     [shouldConfigure("--foot", applications?.foot ?? false), () => configureFoot(scheme), "Foot"],
     [
       shouldConfigure("--alacritty", applications?.alacritty ?? false),
@@ -118,6 +161,10 @@ Examples:
       () => configureXresources(scheme),
       "Xresources",
     ],
+  ];
+
+  // Window Managers
+  const windowManagerConfigs: Array<[boolean, () => void, string]> = [
     [shouldConfigure("--i3", applications?.i3 ?? false), () => configureI3(scheme), "i3"],
     [shouldConfigure("--sway", applications?.sway ?? false), () => configureSway(scheme), "Sway"],
     [
@@ -126,6 +173,8 @@ Examples:
       "River",
     ],
   ];
+
+  const configs = [...editorConfigs, ...terminalConfigs, ...windowManagerConfigs];
 
   const appsToConfigure = configs.filter(([shouldRun]) => shouldRun).map(([, , name]) => name);
 
@@ -151,9 +200,12 @@ Examples:
   }
 
   console.log("Configuring colorscheme...\n");
-  configs.forEach(([shouldRun, configure]) => shouldRun && configure());
-
-  console.log("\n✓ Colorscheme configured successfully!");
+  configs.forEach(([shouldRun, configure, name]) => {
+    if (shouldRun) {
+      configure();
+      console.log(`✓ Configured ${name}`);
+    }
+  });
 }
 
 main().catch((error) => {

@@ -20,10 +20,12 @@
     "solid-js": "^1.9.10"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.1.17",
     "@types/bun": "latest",
     "prettier": "^3.7.4",
-    "vite": "^7.2.6",
-    "vite-plugin-solid": "^2.11.10",
-    "typescript": "^5.9.3"
+    "tailwindcss": "^4.1.17",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.7",
+    "vite-plugin-solid": "^2.11.10"
   }
 }

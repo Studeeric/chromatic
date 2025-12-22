@@ -114,5 +114,4 @@ ${Object.entries(colorMap)
   }
 
   writeConfigFile(footConfigPath, footConfig);
-  console.log("✓ Configured Foot");
 }

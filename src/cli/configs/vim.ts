@@ -79,5 +79,5 @@ export function configureVim(scheme: ColorScheme): void {
     },
   ];
 
-  updateConfigFile(join(homedir(), ".vimrc"), null, updates, "Vim");
+  updateConfigFile(join(homedir(), ".vimrc"), null, updates);
 }
